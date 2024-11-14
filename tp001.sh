@@ -152,12 +152,15 @@ tree .
 # 1. Vous devez vous trouver dans ~/test.
 cd ~/test
 pwd
+
 # 2. Créez une série de fichiers avec des noms divers. 
 touch aze.txt abs.txt s0er e1f lea 0e2 123 sdfe lqsd3 21e 13ef3 1feq.txt 32fe3
 ls
+
 # Listez les fichiers avec les caractéristiques suivantes :
 # — Les fichiers ayant une extension .txt.
 find ~ -type f -name "*.txt"
+
 # correction
 ls *.txt
 
