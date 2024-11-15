@@ -5,21 +5,17 @@
 ## Ali Bacha Mohamed ##
 #######################
 
-#!/bin/bash
-
 ### Répertoires, fichiers et recherches
 #
 # 1. Vous devez vous trouver dans le répertoire ~/test.
-cd ~/test
+cd /home/user/test
 
 # 2. Créer un fichier months contenant le calendrier du mois courant avec un mois avant et un mois après. 
 # Afficher le contenu de ce fichier.
 cal -3  > month ; cat month
 
 # 3. Afficher les éléments cachés (dont le nom commence par un point) dans le répertoire personnel de l’utilisateur courant.
-ls -a /home/users/
 ls -a ~
-ls -a .. #si on se trouve dans le dossier /test/
 
 # 4. 
 # Créer 3 fichiers commençant par essai et dont seulement l’un d’entre eux contient le mot « Bonjour ». 
@@ -60,7 +56,7 @@ grep 'ssh' journal | grep 'failed password'
 # Enoncé
 # 
 # 1. Afficher le contenu du répertoire exserie002 au format long.
-cd ~/test/exserie002
+cd /home/user/test/exserie002
 ls -lh
 
 # 2. Afficher l’arborescence du répertoire exserie002 avec la taille de chaque élément.
