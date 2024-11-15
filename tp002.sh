@@ -109,7 +109,7 @@ find . -size +12M -type f -exec cp "{}" ./big_files/ \;
 date >> log
 
 # (f) Lister ensuite le contenu du répertoire avec la taille des fichiers.
-ls -lh
+ls -lh ./big_files/
 
 # (g) Afficher le contenu du fichier log.
 cat log
