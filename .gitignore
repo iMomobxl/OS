@@ -1,1 +1,3 @@
 *.pdf
+/Doc
+.DS_Store
