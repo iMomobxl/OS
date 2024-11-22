@@ -47,6 +47,10 @@ find /home/user -type f -iname "*[^FR].pdf" delete
 find -type f \( -name "*_[a-zA-Z][a-zA-Z].pdf" -a -not -name "*_fr.pdf" \) -delete
 # correction 2
 for e in $( ls *.pdf | grep -o "_..\.pdf$" | sort | uniq | grep -v "_fr\.pdf" ) ; do rm *$e ; done
+#
+ls *.pdf | grep -o "..\.pdf" | sort | uniq | grep -v _fr\.pdf
+
+
 
 # 8. Rediriger le résultat de la commande sudo journalctl --no-pager vers le fichier journal. Quelle est la taille du fichier ?
 ls -lh #2,6M
@@ -96,8 +100,10 @@ cat data.lst
 
 # 4. Lister tous les fichiers binaires (avec l’extension .bin) avec leur taille.
 find . -type f -iname "*.bin" -ls
-# correction
+# correction 1
 find exserie002/ -type f -name "*.bin" -exec ls -lh "{}" \;
+# correction 2
+find exserie002/ -type f -name "*.bin" -exec stat -c"%s %n" "{}" \;
 
 # 5. Combien y a-t-il de fichiers texte (avec l’extension .txt) ?
 find . -type f -iname "*.txt" | wc -l
