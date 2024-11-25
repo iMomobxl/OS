@@ -22,10 +22,45 @@ cat /etc/group | grep user | cut -d : -f 1 | tr "\n" " "
 # encore validées
 # Voici les différentes étapes pour résoudre l’exercice, donner les commandes correspondantes :
 # (a) créer les groupes de chaque équipe;
+sudo su
+groupadd energie       # id: 1001
+groupadd mecanique     # id: 1002
+groupadd electronique  # id: 1003
+groupadd software      # id: 1004
+su user
 
 # (b) créer les utilisateurs et les placez dans ces groupes en fonction de leur équipe;
+sudo su
+useradd -m energie_user_1 -p password
+useradd -m energie_user_2 -p password
+useradd -m mecanique_user_1 -p password
+useradd -m mecanique_user_2 -p password
+useradd -m electronique_user_1 -p password
+useradd -m electronique_user_2 -p password
+useradd -m software_user_1 -p password
+useradd -m software_user_2 -p password
+
+usermod -a -G energie energie_user_1
+usermod -a -G energie energie_user_2
+usermod -a -G mecanique mecanique_user_1
+usermod -a -G mecanique mecanique_user_2
+usermod -a -G electronique electronique_user_1
+usermod -a -G electronique electronique_user_2
+usermod -a -G software software_user_1
+usermod -a -G software software_user_2
+
+apt-get install members
+
+members energie
+members mecanique
+members electronique
+members software
+
+su user
 
 # (c) créer le répertoire /projet avec les permissions adéquates;
+cd ~
+mkdir ./projet
 
 # (d) dans /projet, créer un répertoire par équipe avec les permissions adéquates;
 
