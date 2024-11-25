@@ -31,6 +31,11 @@ su user
 
 # (b) créer les utilisateurs et les placez dans ces groupes en fonction de leur équipe;
 sudo su
+useradd -m energie_master -p password -g 1001
+useradd -m mecanique_master -p password -g 1002
+useradd -m electronique_master -p password -g 1003
+useradd -m software_master -p password -g 1004
+
 useradd -m energie_user_1 -p password
 useradd -m energie_user_2 -p password
 useradd -m mecanique_user_1 -p password
@@ -51,10 +56,10 @@ usermod -a -G software software_user_2
 
 apt-get install members
 
-members energie
-members mecanique
-members electronique
-members software
+members -t energie
+members -t mecanique
+members -t electronique
+members -t software
 
 su user
 
