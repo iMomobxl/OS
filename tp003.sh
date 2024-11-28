@@ -68,8 +68,17 @@ cd ~
 mkdir ./projet
 
 # (d) dans /projet, créer un répertoire par équipe avec les permissions adéquates;
+cd /projet
+mkdir energie_dir
+mkdir meca_dir
+mkdir elec_dir
+mkdir soft_dir
 
 # (e) dans chaque répertoire d’équipe, créer un répertoire restricted accessible uniquement à l’équipe;
+mkdir energie_dir/restricted
+mkdir meca_dir/restricted
+mkdir elec_dir/restricted
+mkdir soft_dir/restricted
 
 # Afin de valider votre solution, identifiez-vous avec des utilisateurs de différentes équipes 
 # et essayez de différentes opérations sur les dossiers et les répertoires.
