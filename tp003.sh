@@ -116,4 +116,5 @@ sudo chmod 700 ./examephec/student_2
 
 # 5. Les examens sont finis. Quelle(s) commande(s) devez-vous utiliser pour que les étudiants ne
 # puissent plus rien modifier dans leurs répertoires.
-sudo chmod 750 ./examephec/student_{1,2}
+sudo chown teacher:examephec ./examephec/student_{1,2}
+sudo chmod 710 ./examephec/student_{1,2}
