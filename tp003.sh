@@ -12,7 +12,7 @@
 
 # 2. Sur base du contenu du fichier /etc/group, retrouvez le nom de tous le groupes dont vous faites parties 
 # (le résultat doit être équivalant à la commande groups)
-cat /etc/group | grep user | cut -d : -f 1 | tr "\n" " "
+cat /etc/group | grep "^user$" | cut -d : -f 1 | tr "\n" " "
 
 # 3. Le responsable R&D de votre entreprise vient vous trouver. Un nouveau projet de robotique vient
 # de démarrer et il voudrait que ses équipes puissent collaborer. Il y a les équipes « énergie »,
@@ -23,62 +23,59 @@ cat /etc/group | grep user | cut -d : -f 1 | tr "\n" " "
 # Voici les différentes étapes pour résoudre l’exercice, donner les commandes correspondantes :
 # (a) créer les groupes de chaque équipe;
 sudo su
-groupadd energie       # id: 1001
-groupadd mecanique     # id: 1002
-groupadd electronique  # id: 1003
-groupadd software      # id: 1004
+groupadd ener   # id: 1001 (energie)
+groupadd meca   # id: 1002 (mecanique)
+groupadd elec   # id: 1003 (electronique)
+groupadd soft   # id: 1004 (software)
 su user
 
 # (b) créer les utilisateurs et les placez dans ces groupes en fonction de leur équipe;
 sudo su
-useradd -m energie_master -p password -g 1001
-useradd -m mecanique_master -p password -g 1002
-useradd -m electronique_master -p password -g 1003
-useradd -m software_master -p password -g 1004
+useradd -m user_1 -p password -g 1001 -c "energie user_1"
+useradd -m user_2 -p password -g 1002 -c "mecanique user_2"
+useradd -m user_3 -p password -g 1003 -c "electronique user_3"
+useradd -m user_4 -p password -g 1004 -c "software user_4"
 
-useradd -m energie_user_1 -p password
-useradd -m energie_user_2 -p password
-useradd -m mecanique_user_1 -p password
-useradd -m mecanique_user_2 -p password
-useradd -m electronique_user_1 -p password
-useradd -m electronique_user_2 -p password
-useradd -m software_user_1 -p password
-useradd -m software_user_2 -p password
+# (autre solution)
+useradd -m user_1 -p password -c "energie user_1"
+useradd -m user_2 -p password -c "mecanique user_2"
+useradd -m user_3 -p password -c "electronique user_3"
+useradd -m user_4 -p password -c "software user_4"
 
-usermod -a -G energie energie_user_1
-usermod -a -G energie energie_user_2
-usermod -a -G mecanique mecanique_user_1
-usermod -a -G mecanique mecanique_user_2
-usermod -a -G electronique electronique_user_1
-usermod -a -G electronique electronique_user_2
-usermod -a -G software software_user_1
-usermod -a -G software software_user_2
+usermod -a -G ener user_1
+usermod -a -G meca user_2
+usermod -a -G elec user_3
+usermod -a -G soft user_4
 
 apt-get install members
 
-members -t energie
-members -t mecanique
-members -t electronique
-members -t software
+members -t ener
+members -t meca
+members -t elec
+members -t soft
 
 su user
 
 # (c) créer le répertoire /projet avec les permissions adéquates;
 cd ~
 mkdir ./projet
+sudo chmod 755 ./projet
 
 # (d) dans /projet, créer un répertoire par équipe avec les permissions adéquates;
 cd /projet
-mkdir energie_dir
-mkdir meca_dir
-mkdir elec_dir
-mkdir soft_dir
+mkdir ener_rep meca_rep soft_rep elec_rep
+sudo chown :ener ener_rep
+sudo chown :meca meca_rep
+sudo chown :soft soft_rep
+sudo chown :elec elec_rep
+sudo chmod 774 *_rep         #drwxrwxr--
 
 # (e) dans chaque répertoire d’équipe, créer un répertoire restricted accessible uniquement à l’équipe;
-mkdir energie_dir/restricted
-mkdir meca_dir/restricted
-mkdir elec_dir/restricted
-mkdir soft_dir/restricted
+mkdir ener_rep/restricted
+mkdir meca_rep/restricted
+mkdir elec_rep/restricted
+mkdir soft_rep/restricted
+sudo chmod 770 *_rep/restricted
 
 # Afin de valider votre solution, identifiez-vous avec des utilisateurs de différentes équipes 
 # et essayez de différentes opérations sur les dossiers et les répertoires.
@@ -90,17 +87,33 @@ mkdir soft_dir/restricted
 # répertoires de tous les étudiants, ainsi que le contenu de examephec.
 # Voici les différentes étapes pour résoudre l’exercice, donner les commandes correspondantes 
 # (a) créer le groupe examephec;
+groupadd exemephec
 
 # (b) créer un compte enseignant et le placer dans le(s) groupe(s) approprié(s);
+useradd -m teacher -p password -g exemephec -c teacher
 
 # (c) créer des comptes étudiants et les placer dans le(s) groupe(s) approprié(s);
+useradd -m student_1 -p password -c "student id 1"
+useradd -m student_2 -p password -c "student id 2"
+
+usermod -a -G examephec student_{1,2}
 
 # (d) créer le répertoire /examephec avec les permissions appropriées;
+mkdir ./examephec
+sudo chown teacher:examephec ./examephec
+sudo chmod 710 ./examephec
 
 # (e) dans /examephec, créer les répertoires des étudiants avec les permissions appropriées;
+mkdir ./examephec/student_1
+mkdir ./examephec/student_2
+sudo chown student1:examephec ./examephec/student_1
+sudo chown student2:examephec ./examephec/student_2
+sudo chmod 700 ./examephec/student_1
+sudo chmod 700 ./examephec/student_2
 
 # Afin de valider votre solution, identifiez-vous avec des comptes étudiants et le compte enseignant,
 # et essayez de différentes opérations sur les dossiers et les répertoires.
 
 # 5. Les examens sont finis. Quelle(s) commande(s) devez-vous utiliser pour que les étudiants ne
 # puissent plus rien modifier dans leurs répertoires.
+sudo chmod 750 ./examephec/student_{1,2}
