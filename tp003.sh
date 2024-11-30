@@ -2,17 +2,23 @@
 
 #######################
 ######## tp03 #########
-## ................. ##
+## Ali Bacha Mohamed ##
 #######################
 
 ### Gestion des accès
 #
 # 1. Donnez les noms d’utilisateur des comptes qui peuvent se connecter sur le système.
 ( grep -f /etc/shells /etc/passwd ) | cut -d : -f 1 | tr "\n" " "
+# correction
+grep -f /etc/shells /etc/passwd | cut -d : -f 1
 
 # 2. Sur base du contenu du fichier /etc/group, retrouvez le nom de tous le groupes dont vous faites parties 
 # (le résultat doit être équivalant à la commande groups)
 cat /etc/group | grep "^user$" | cut -d : -f 1 | tr "\n" " "
+# correction 1
+grep -E "\b$(whoami)\b" /etc/group | cut -d : -f 1 | tr "\n" " " ; echo
+# correction 2
+( grep -P "^\w+:x:$(id -g):" /etc/group && grep -P "^\w+:x:\d+:.*\b$(whoami)\b" /etc/group ) | cut -d : -f 1 | tr "\n" " " ; echo
 
 # 3. Le responsable R&D de votre entreprise vient vous trouver. Un nouveau projet de robotique vient
 # de démarrer et il voudrait que ses équipes puissent collaborer. Il y a les équipes « énergie »,
@@ -75,7 +81,7 @@ mkdir ener_rep/restricted
 mkdir meca_rep/restricted
 mkdir elec_rep/restricted
 mkdir soft_rep/restricted
-sudo chmod 770 *_rep/restricted
+sudo chmod -R 770 *_rep/restricted
 
 # Afin de valider votre solution, identifiez-vous avec des utilisateurs de différentes équipes 
 # et essayez de différentes opérations sur les dossiers et les répertoires.
@@ -116,5 +122,5 @@ sudo chmod 700 ./examephec/student_2
 
 # 5. Les examens sont finis. Quelle(s) commande(s) devez-vous utiliser pour que les étudiants ne
 # puissent plus rien modifier dans leurs répertoires.
-sudo chown teacher:examephec ./examephec/student_{1,2}
+sudo chown -R teacher:examephec ./examephec/student_{1,2}
 sudo chmod 710 ./examephec/student_{1,2}
