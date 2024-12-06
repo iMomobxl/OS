@@ -2,7 +2,7 @@
 
 #######################
 ######## tp03 #########
-## Ali Bacha Mohamed ##
+## ................. ##
 #######################
 
 ### Gestion des accès
@@ -86,6 +86,26 @@ sudo chmod -R 770 *_rep/restricted
 # Afin de valider votre solution, identifiez-vous avec des utilisateurs de différentes équipes 
 # et essayez de différentes opérations sur les dossiers et les répertoires.
 
+# correction
+useradd -g energie m-m -s /bin/bash anatol
+passwd anatol
+useradd -g mecanique m-m -s /bin/bash bene
+passwd bene
+useradd -g electronique m-m -s /bin/bash chris
+passwd chris
+useradd -g software m-m -s /bin/bash dora
+passwd dora
+
+mkdir -p /project/{energie,mecanique,electronique,software}/restricted
+chgrp -R energie /project/energie/
+chgrp -R mecanique /project/mecanique/
+chgrp -R electronique /project/electronique/
+chgrp -R software /project/software/
+chmod g+w /project/*
+chmod 770 /project/*/restricted
+ls -la /project/*
+
+############################################################################
 # Ce sont les examens à l’EPHEC. Vous gérez le serveur sur lequel les étudiants déposeront leurs
 # travaux. Créez un répertoire pour chaque étudiant dans le répertoire /examephec. Les étudiants
 # ne pourront pas voir le contenu de ce dernier, mais pourront accéder à leur propre répertoire,
@@ -124,3 +144,24 @@ sudo chmod 700 ./examephec/student_2
 # puissent plus rien modifier dans leurs répertoires.
 sudo chown -R teacher:examephec ./examephec/student_{1,2}
 sudo chmod 710 ./examephec/student_{1,2}
+
+
+# correction
+groupadd examen
+useradd -m -s /bin/bash -G examen teach1
+passwd teach1
+useradd -m -s /bin/bash stud1
+passwd stud1
+useradd -m -s /bin/bash stud2
+passwd stud2
+useradd -m -s /bin/bash stud3
+passwd stud3
+
+mkdir -p /examen/stud{1..3}
+chgrp -R examen /examen
+chown stud1 /examen/stud1
+chown stud1 /examen/stud2
+chown stud1 /examen/stud3
+chmod o-r /examen/
+chmod o-rx /examen/*
+ls -laR /examen/
