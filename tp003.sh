@@ -106,7 +106,7 @@ chmod 770 /project/*/restricted
 ls -la /project/*
 
 ############################################################################
-# Ce sont les examens à l’EPHEC. Vous gérez le serveur sur lequel les étudiants déposeront leurs
+# 4. Ce sont les examens à l’EPHEC. Vous gérez le serveur sur lequel les étudiants déposeront leurs
 # travaux. Créez un répertoire pour chaque étudiant dans le répertoire /examephec. Les étudiants
 # ne pourront pas voir le contenu de ce dernier, mais pourront accéder à leur propre répertoire,
 # et uniquement ce dernier. Les professeurs, quant à eux, pourront voir le contenu de tous les
@@ -161,7 +161,12 @@ mkdir -p /examen/stud{1..3}
 chgrp -R examen /examen
 chown stud1 /examen/stud1
 chown stud1 /examen/stud2
-chown stud1 /examen/stud3
-chmod o-r /examen/
-chmod o-rx /examen/*
+chown stud1 /examen/stud3 # chown stud1:examen /exemen/stud1/
+chmod o-r /examen/ # chmod 555 /examen
+chmod o-rx /examen/* # chmod 750 /examen
 ls -laR /examen/
+
+chmod -R a-w /examen # chmod -R 444 /examen retire les droit w de tt le monde mais le proprio peut remettre le w
+
+# en root
+chown root /examen/ # change le proprio des fichier a root -> stud1 ne peut plus modifier permission
