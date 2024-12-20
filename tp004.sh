@@ -115,13 +115,25 @@ chmod u+x infinite.sh
 #
 # 1. Parmi tous les processus, retrouvez ceux qui sont exécutés en tant que root.
 ps --User root
+# correction 
+ps -U root -u root u
+
 # 2. Parmi tous les processus, retrouvez ceux qui sont exécutés avec le compte de l’utilisateur courant.
 ps --user user
+# correction
+cu=$(whoami) && ps -u $cu -U $cu u
+
 # 3. Exécutez en arrière-plan et sans paramètre la commande cat. Envoyez-lui ensuite un signal pour l’arrêter.
 cat
 bg
 ps u
 kill -9 1385 # 1385 = id du jobs
+# correction
+cat &
+jobs
+kill 1042
+jobs
+kill -9 1042
 
 # 4. Dans un premier terminal, exécutez en arrière-plan 3 instances de infinite.sh. 
 # Dans un second, exécutez la commande top de manière à voir apparaître vos scripts. 
@@ -135,6 +147,18 @@ kill -9 1385 # 1385 = id du jobs
 # bg
 # cat
 # bg
+
+# correction
+# terminal 1:
+./infinite.sh &
+./infinite.sh &
+./infinite.sh &
+# terminal 2:
+top -u $(whoami)
+# termial 3:
+kill 1089
+kill 1090
+kill 1091
 
 # 5 Scripts
 #
