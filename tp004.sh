@@ -93,7 +93,7 @@ touch ./script/helloworld.sh
 vi ./script/helloworld.sh
 chmod u+x ./script/helloworld.sh
 cd script
-.helloworld.sh
+./helloworld.sh
 # output:
 # user@OS:~/test/script$ ./helloworld.sh 
 # Hello World!
@@ -135,6 +135,7 @@ kill 1042
 jobs
 kill -9 1042
 
+
 # 4. Dans un premier terminal, exécutez en arrière-plan 3 instances de infinite.sh. 
 # Dans un second, exécutez la commande top de manière à voir apparaître vos scripts. 
 # Dans un troisième terminal, envoyez des signaux aux différentes instances de votre script pour les arrêter. 
@@ -150,7 +151,7 @@ kill -9 1042
 
 # correction
 # terminal 1:
-./infinite.sh &
+./infinite.sh & # & = excute directement la commande en arriere plan, remplace bg + ^z
 ./infinite.sh &
 ./infinite.sh &
 # terminal 2:

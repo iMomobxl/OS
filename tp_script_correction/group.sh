@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Test des parametres
-if [[ $# -eq 0 ]] ; then
+if [[ $# -eq 0 ]] ; then                        # -eq: egalité
     given_user=$(whoami)
 elif [[ $# -eq 1 ]] ; then
     given_user=$1
@@ -15,7 +15,7 @@ fi
 given_group_id=$(id -g $given_user) 2>/dev/null
 
 # L'utilisateur existe-t-il?
-if [[ $? -ne 0 ]] ; then
+if [[ $? -ne 0 ]] ; then                        # -ne: different (not equal)
     echo "$(basename $0): '$given_user' doesn't exist"
     exit 2
 fi
