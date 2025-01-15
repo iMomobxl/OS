@@ -7,7 +7,7 @@
 # 
 
 
-sn=$(basenae $0)
+sn=$(basename $0)
 # verifie si je suis root
 if [[ $EUID -ne 0 ]] ; then
     echo "$sn: Vous devez etre root"
@@ -33,7 +33,7 @@ fi
 # valider les parametres
 # verifie si le parametre est un fichier
 if [[ ! -f "$script_name" ]] ; then # ajout les gillemets autour d'une variable en cas d'espace
-    echo "$dn: '$script_name' n'est pas un fichier"
+    echo "$sn: '$script_name' n'est pas un fichier"
     exit 3
 fi
 
