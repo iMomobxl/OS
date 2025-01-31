@@ -16,23 +16,19 @@ fi
 
 username=$1
 # check if the user exist
-getent passwd $username &>/dev/null 
-
-# getent return 0 if user exist, 1 if user not exist
+getent passwd $username &>/dev/null # getent return 0 if user exist, 1 if user not exist
 
 if [[ $? -eq 0 ]] ; then
-    echo "L'utilisateur existe déjà"
+    echo "$sn: L'utilisateur existe déjà"
     exit 3
 fi
 
 # check du parametre password
 if [[ -z $2 ]] ; then
-    password=password
+    password=$(openssl passwd -6 "password")
 else
-    password=$2
+    password=$(openssl passwd -6 $2)
 fi
-
-echo "password: $password"
 
 # check du parametre bin
 if [[ -z $3 ]] ; then
@@ -41,4 +37,9 @@ else
     shell=$3
 fi
 
-echo "shell: $shell"
+useradd -p $password -m -s /bin/bash $username
+
+if [[ $? -ne 0 ]] ; then
+    echo "$sn: erreur lors de la creation de l'utilisateur"
+    exit 4
+fi
