@@ -14,7 +14,7 @@ if [[ -e "$script" ]] ; then
     exit 2
 fi
 
-echo "#!/bin/bach" > "$script"
+echo "#!/bin/bash" > "$script"
 echo >> "$script"
 echo >> "$script"
 
